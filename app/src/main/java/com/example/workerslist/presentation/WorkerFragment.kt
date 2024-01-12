@@ -76,7 +76,7 @@ class WorkerFragment : Fragment() {
             binding.btnAction.setOnClickListener {
                 saveBtn(
                     etFio.text.toString(),
-                    etRole.text.toString(),
+                    etRole.text.toString().trim(),
                     etBirthday.text.toString()
                 )
             }
