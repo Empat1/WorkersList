@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">WorkersList</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="notification_channel_id">Foreground</string>
+    <string name="notification_title">Сохранение</string>
+    <string name="notification_cancel">Закрыто</string>
+    <string name="notification_save_date">Сохранено</string>
+    <string name="cancel_download">Сохранение в файл\n</string>
+    <string name="notification_channel_id_standard">standard</string>
+    <string name="unload">Выгрузить</string>
+    <string name="add">add</string>
+    <string name="wait_save_file">Подождите данные сохраняются</string>
+</resources>
