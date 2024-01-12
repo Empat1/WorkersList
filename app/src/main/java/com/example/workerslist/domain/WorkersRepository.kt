@@ -4,11 +4,11 @@ import androidx.lifecycle.LiveData
 
 interface WorkersRepository {
 
-    fun addWorker(worker: Worker)
+    suspend fun addWorker(workerModel: WorkerModel)
 
-    fun deleteWorker(worker: Worker)
+    suspend fun deleteWorker(workerId: Long)
 
-    fun getAllWorker() : LiveData<ArrayList<Worker>>
+    fun getAllWorker() : LiveData<List<WorkerModel>>
 
     suspend fun save()
 }

@@ -4,11 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.example.workerslist.databinding.ItemWorkerBinding
-import com.example.workerslist.domain.Worker
+import com.example.workerslist.domain.WorkerModel
 
-class WorkerAdapter : ListAdapter<Worker, WorkerViewHolder>(WorkerDiffCallback) {
+class WorkerAdapter : ListAdapter<WorkerModel, WorkerViewHolder>(WorkerDiffCallback) {
 
-    var onWorkerItemClickListener: ((Worker) -> Unit)? = null
+    var onWorkerItemClickListener: ((WorkerModel) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WorkerViewHolder {
         val binding = ItemWorkerBinding.inflate(

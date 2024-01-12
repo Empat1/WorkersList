@@ -10,7 +10,7 @@ import androidx.work.WorkerParameters
 import com.example.workerslist.R
 import com.example.workerslist.data.FileDataManager
 import com.example.workerslist.data.JsonDataManager
-import com.example.workerslist.data.WorkersDao
+import com.example.workerslist.data.database.WorkersDao
 import com.example.workerslist.domain.Workers
 import com.example.workerslist.presentation.notification.NotificationBuilder
 import javax.inject.Inject
@@ -26,9 +26,9 @@ class SaveDataWorker(
 
     override suspend fun doWork(): Result {
         setForeground(createForegroundInfo(context.getString(R.string.wait_save_file)))
-
         val workers =
-            workersDao.getAllWorker().value!!.filter { it.fio.length > 5 && it.jobRole == "Администратор" }
+            workersDao.getAllWorker().filter { it.fio.length > 5 && it.jobRole == "Администратор" }
+
         val workersJson = jsonDataManager.exportToJSON(Workers(workers))
 
         fileDataManager.saveFile(workersJson)

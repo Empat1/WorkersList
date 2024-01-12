@@ -1,9 +1,12 @@
 package com.example.workerslist.presentation
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.workerslist.helper.DateHelper
-import com.example.workerslist.domain.Worker
+import com.example.workerslist.domain.WorkerModel
 import com.example.workerslist.domain.WorkersRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class WorkerViewModel @Inject constructor(
@@ -11,16 +14,20 @@ class WorkerViewModel @Inject constructor(
     private val dateHelper: DateHelper
 ) : ViewModel() {
 
-    fun correctWorker(worker: Worker): Boolean{
-        return dateHelper.dateCorrect(worker.birthday)
+    fun correctWorker(workerModel: WorkerModel): Boolean{
+        return dateHelper.dateCorrect(workerModel.birthday)
     }
 
-    fun addWorker(worker: Worker){
-        repository.addWorker(worker)
+    fun addWorker(workerModel: WorkerModel){
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.addWorker(workerModel)
+        }
     }
 
-    fun removeWorker(worker: Worker){
-        repository.deleteWorker(worker)
+    fun removeWorker(workerModel: WorkerModel){
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deleteWorker(workerModel.id)
+        }
     }
 
 }

@@ -1,3 +1,5 @@
 package com.example.workerslist.domain
 
-data class Workers(val worker: List<Worker>)
+import com.example.workerslist.data.database.WorkerDb
+
+data class Workers(val workerModel: List<WorkerDb>)

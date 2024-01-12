@@ -12,7 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.workerslist.ApplicationApp
 import com.example.workerslist.databinding.FragmentWorkerBinding
 import com.example.workerslist.helper.DateHelper
-import com.example.workerslist.domain.Worker
+import com.example.workerslist.domain.WorkerModel
 import ru.tinkoff.decoro.MaskImpl
 import ru.tinkoff.decoro.parser.UnderscoreDigitSlotsParser
 import ru.tinkoff.decoro.slots.Slot
@@ -27,7 +27,7 @@ class WorkerFragment : Fragment() {
     }
 
     private var workMode = ""
-    private var worker: Worker? = null
+    private var workerModel: WorkerModel? = null
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -85,9 +85,9 @@ class WorkerFragment : Fragment() {
 
     private fun settingRemoveMode(binding: FragmentWorkerBinding) {
         binding.btnAction.text = "Удалить"
-        worker?.let { setWorker(binding, it) }
+        workerModel?.let { setWorker(binding, it) }
         binding.btnAction.setOnClickListener {
-            worker?.let { it1 -> viewModel.removeWorker(it1) }
+            workerModel?.let { it1 -> viewModel.removeWorker(it1) }
             parentFragmentManager.popBackStack()
         }
     }
@@ -104,24 +104,24 @@ class WorkerFragment : Fragment() {
         if (workMode == READ_WORK_MODE) {
             if (!args.containsKey(ARG_WORKER))
                 throw RuntimeException("Param worker is absent")
-            worker = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
-                args.getParcelable(ARG_WORKER, Worker::class.java)
+            workerModel = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
+                args.getParcelable(ARG_WORKER, WorkerModel::class.java)
             else
                 args.getParcelable(ARG_WORKER)
 
         }
     }
 
-    private fun setWorker(binding: FragmentWorkerBinding, worker: Worker) {
-        binding.etFio.setText(worker.fio)
-        binding.etBirthday.setText(worker.birthday)
-        binding.etRole.setText(worker.jobRole)
+    private fun setWorker(binding: FragmentWorkerBinding, workerModel: WorkerModel) {
+        binding.etFio.setText(workerModel.fio)
+        binding.etBirthday.setText(workerModel.birthday)
+        binding.etRole.setText(workerModel.jobRole)
     }
 
     private fun saveBtn(fio: String, role: String, birthday: String) {
-        val worker = Worker(fio, birthday, role)
-        if (viewModel.correctWorker(worker)) {
-            viewModel.addWorker(worker)
+        val workerModel = WorkerModel(fio = fio, birthday =  birthday, jobRole =  role)
+        if (viewModel.correctWorker(workerModel)) {
+            viewModel.addWorker(workerModel)
             parentFragmentManager.popBackStack()
         }else{
             Toast.makeText(context, "Данные указаны некорректно", Toast.LENGTH_LONG).show()
@@ -143,11 +143,11 @@ class WorkerFragment : Fragment() {
             }
 
         @JvmStatic
-        fun newInstanceRemoveWorker(worker: Worker) =
+        fun newInstanceRemoveWorker(workerModel: WorkerModel) =
             WorkerFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_WORK_MODE, READ_WORK_MODE)
-                    putParcelable(ARG_WORKER, worker)
+                    putParcelable(ARG_WORKER, workerModel)
                 }
             }
     }

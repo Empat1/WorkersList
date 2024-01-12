@@ -34,12 +34,9 @@ class FileDataManager @Inject constructor(private val application: Application) 
                 it.readText()
             }
         } catch (e: FileNotFoundException) {
-            Log.d(TAG, "file not find")
+            Log.e(TAG, "file not find")
             ""
         }
-
-
-        Log.d(TAG, "get file text $inputAsString")
         return inputAsString
     }
 

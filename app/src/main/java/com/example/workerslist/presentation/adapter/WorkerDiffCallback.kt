@@ -1,14 +1,14 @@
 package com.example.workerslist.presentation.adapter
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.workerslist.domain.Worker
+import com.example.workerslist.domain.WorkerModel
 
-object WorkerDiffCallback : DiffUtil.ItemCallback<Worker>(){
-    override fun areItemsTheSame(oldItem: Worker, newItem: Worker): Boolean {
-        return oldItem == newItem
+object WorkerDiffCallback : DiffUtil.ItemCallback<WorkerModel>(){
+    override fun areItemsTheSame(oldItem: WorkerModel, newItem: WorkerModel): Boolean {
+        return oldItem.id == newItem.id
     }
 
-    override fun areContentsTheSame(oldItem: Worker, newItem: Worker): Boolean {
+    override fun areContentsTheSame(oldItem: WorkerModel, newItem: WorkerModel): Boolean {
         return oldItem == newItem
     }
 }
